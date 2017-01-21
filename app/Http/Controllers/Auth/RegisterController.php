@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Webpatser\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -42,7 +43,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -51,6 +52,9 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'dob' => 'required|date',
+            'gender' => 'required|string',
+            'mobile' => 'required',
         ]);
     }
 
@@ -63,9 +67,14 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'id' => Uuid::generate(5, $data['email'], Uuid::NS_DNS)->string,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'dob' => date('Y-m-d', strtotime($data['dob'])),
+            'gender' => $data['gender'],
+            'mobile' => $data['mobile'],
+            'role_id' => 2 // role for users
         ]);
     }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "laravel-5-thestore",
+  "description": "simple store",
+  "main": "",
+  "authors": [
+    "Ashraf <ashrafdev@protonmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Ashrafdev/laravel-5-thestore",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-font-awesome": "^4.7.0",
+    "bootstrap": "v4.0.0-alpha.6"
+  },
+  "directory" : "public/bower_components"
+}
