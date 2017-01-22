@@ -22,6 +22,7 @@ class Items extends Migration
             $table->string('file_mime')->nullable();
             $table->integer('item_categories_id')->nullable();
             $table->char('user_id', '36')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->primary('id');
             $table->index(['item_categories_id', 'user_id']);

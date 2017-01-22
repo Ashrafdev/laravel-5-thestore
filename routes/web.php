@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,26 @@ Auth::routes();
 
 // public
 Route::get('/', 'HomeController@index');
-Route::get('/logout', 'Auth\LoginController@logout');
 
+// GET
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/login', function () {
+    return view('auth.login2');
+});
+// POST
+//Route::post('/login', 'Auth\LoginController@login');
+//Route::post('/register', 'Auth\LoginController@login');
+
+// Auth
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index');
     //Route::get('/profile', 'HomeController@index');
+    Route::resource('items', 'ItemsController');
+    Route::resource('states', 'StatesController');
+    Route::resource('countries', 'CountriesController');
+    Route::resource('item_categories', 'ItemCategoriesController');
+    Route::resource('roles', 'RolesController');
+    Route::resource('users', 'UsersController');
+    Route::resource('types', 'TypesController');
+    Route::resource('states', 'StatesController');
 });

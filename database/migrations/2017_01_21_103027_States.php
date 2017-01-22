@@ -16,6 +16,7 @@ class States extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

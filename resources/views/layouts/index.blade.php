@@ -38,15 +38,21 @@
         <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
     </div>
     <a href="{!! url('/') !!}" class="logo">The <span>Store</span></a>
-    <div class="horizontal-menu navbar-collapse collapse ">
+    <div class="horizontal-menu navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li><a href="/">See All Ads</a></li>
             <li><a href="#">Post Item</a></li>
-            <li><a href="#myModal-login" data-toggle="modal">Login</a></li>
-            <li><a href="#myModal-signup" data-toggle="modal">Sign Up</a></li>
+            @if(!Auth::check())
+                <li><a href="#myModal-login" data-toggle="modal">Login</a></li>
+                <li><a href="#myModal-signup" data-toggle="modal">Sign Up</a></li>
+            @endif
         </ul>
     </div>
-
+    @if(Auth::check())
+        <ul class="nav navbar-right">
+            <li><a href="{!! url('/logout') !!}"><button type="submit" class="btn btn-danger">Logout</button></a></li>
+        </ul>
+    @endif
 </header>
 <body>
 @yield('content')

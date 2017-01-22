@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('role_id');
             $table->rememberToken();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->primary('id');
             $table->index(['role_id']);

@@ -17,6 +17,7 @@ class Countries extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code', '2');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

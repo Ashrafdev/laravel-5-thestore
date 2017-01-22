@@ -16,6 +16,7 @@ class ItemCategories extends Migration
         Schema::create('item_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
