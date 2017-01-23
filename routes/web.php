@@ -15,15 +15,13 @@ Auth::routes();
 
 // public
 Route::get('/', 'HomeController@index');
-
-// GET
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/login', function () {
     return view('auth.login2');
 });
-// POST
-//Route::post('/login', 'Auth\LoginController@login');
-//Route::post('/register', 'Auth\LoginController@login');
+
+Route::get('/post_item', 'ItemsController@createByUser');
+Route::post('/post_item', 'ItemsController@storeByUser');
 
 // Auth
 Route::group(['middleware' => 'auth'], function () {

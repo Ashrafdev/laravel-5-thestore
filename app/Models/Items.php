@@ -15,6 +15,8 @@ class Items extends Model
     use SoftDeletes;
 
     public $table = 'items';
+    public $primaryKey = 'id';
+    public $incrementing = false;
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

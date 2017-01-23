@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
  <div class="row">
         <div class="col-lg-12">
@@ -11,12 +10,9 @@
                     @include('flatlab-templates::common.errors')
                     <div class="row">
                         {!! Form::open(['route' => 'items.store']) !!}
-
                                   @include('items.fields')
-
                         {!! Form::close() !!}
                     </div>
-
                 </div>
             </section>
         </div>

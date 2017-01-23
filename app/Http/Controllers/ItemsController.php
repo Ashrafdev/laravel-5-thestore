@@ -6,10 +6,15 @@ use App\Http\Requests\CreateItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Repositories\ItemsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\User;
+use App\Models\Items;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Webpatser\Uuid\Uuid;
 
 class ItemsController extends AppBaseController
 {
@@ -151,5 +156,62 @@ class ItemsController extends AppBaseController
         Flash::success('Items deleted successfully.');
 
         return redirect(route('items.index'));
+    }
+
+    public function validateItemPost(Request $request)
+    {
+        return $this->validate($request, [
+            'name' => 'required|max:255',
+            'item_description' => 'required|max:255',
+            'item_price' => 'required|integer',
+            'item_categories_id' => 'required|integer',
+            'email' => 'required|email|max:255|unique:users',
+            'dob' => 'required|date',
+            'gender' => 'required',
+            'country' => 'required',
+            'mobile' => 'required|integer',
+            'password' => 'required|min:6|confirmed',
+            'item_image' => 'required|image',
+        ]);
+    }
+
+    //public
+
+    public function storeByUser(Request $request)
+    {
+        $this->validateItemPost($request);
+
+        $file = $request->file('item_image');
+        $path = $request->file('item_image')->store('items', 'global');
+
+        $Users = new User;
+        $Users->id = Uuid::generate(5, $request->email, Uuid::NS_DNS)->string;
+        $Users->name = $request->name;
+        $Users->dob = $request->dob;
+        $Users->gender = $request->gender;
+        $Users->mobile = $request->mobile;
+        $Users->email = $request->email;
+        $Users->password = bcrypt($request->password);
+        $Users->role_id = 2; //user role
+        $Users->save();
+
+        $Items = new Items;
+        $Items->id = Uuid::generate(4)->string;
+        $Items->name = $request->item_name;
+        $Items->description = $request->item_description;
+        $Items->price = $request->item_price;
+        $Items->img_path = $path;
+        $Items->file_mime = $file->getMimeType();
+        $Items->item_categories_id = $request->item_categories_id;
+        $Items->user_id = $Users->id;
+        $Items->save();
+
+//        Flash::success();
+        return redirect(url('/'))->with('status', 'Items saved successfully.');
+    }
+
+    public function createByUser()
+    {
+        return view('post_item.index');
     }
 }

@@ -23,7 +23,6 @@
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/style-responsive.css" rel="stylesheet"/>
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
@@ -41,7 +40,7 @@
     <div class="horizontal-menu navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li><a href="/">See All Ads</a></li>
-            <li><a href="#">Post Item</a></li>
+            <li><a href="{!! url('/post_item') !!}">Post Item</a></li>
             @if(!Auth::check())
                 <li><a href="#myModal-login" data-toggle="modal">Login</a></li>
                 <li><a href="#myModal-signup" data-toggle="modal">Sign Up</a></li>
@@ -94,10 +93,10 @@
 <script src="/js/respond.min.js"></script>
 <script src="/js/slidebars.min.js"></script>
 <script src="/js/common-scripts.js"></script>
-<!--custom checkbox and radio-->
 <script type="text/javascript" src="/js/ga.js"></script>
-<!--script for this page-->
-<script src="/js/form-component.js"></script>
+{{--<script src="/js/form-component.js"></script>--}}
+<script src="/js/jquery.stepy.js"></script>
 @yield('scripts')
+@stack('scripts')
 </body>
 </html>
