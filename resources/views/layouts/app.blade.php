@@ -44,7 +44,7 @@
             <a href="javascript:" class="logo">The <span>Store</span></a>
             <!--logo end-->
 
-            <div class="top-nav ">
+            <div class="top-nav">
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
                     <!-- user login dropdown start-->
@@ -54,7 +54,7 @@
                             <span class="username">
                             @if (Auth::user())
                                     {!! Auth::user()->name !!}
-                                @endif
+                            @endif
                         </span>
                             <b class="caret"></b>
                         </a>
@@ -91,7 +91,7 @@
         <!--footer start-->
         <footer class="site-footer">
             <div class="text-center">
-                {!! date('Y') !!} &copy; The Store.
+                {!! date('Y') !!} The Store.
                 <a href="#" class="go-top">
                     <i class="fa fa-angle-up"></i>
                 </a>

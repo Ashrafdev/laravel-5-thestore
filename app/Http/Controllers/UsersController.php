@@ -76,9 +76,7 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->findWithoutFail($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
-
-            return redirect(route('users.index'));
+            return redirect(url('/'))->with('warning', 'Users not found');
         }
 
         return view('users.show')->with('users', $users);
@@ -96,9 +94,7 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->findWithoutFail($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
-
-            return redirect(route('users.index'));
+            return redirect(route('users.index'))->with('warning', 'Users not found');
         }
 
         return view('users.edit')->with('users', $users);
@@ -117,16 +113,12 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->findWithoutFail($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
-
-            return redirect(route('users.index'));
+            return redirect()->with('warning', 'Error not found');
         }
 
         $users = $this->usersRepository->update($request->all(), $id);
 
-        Flash::success('Users updated successfully.');
-
-        return redirect(route('users.index'));
+        return redirect("/profile/{$id}")->with('success', 'Profile updated successfully.');
     }
 
     /**

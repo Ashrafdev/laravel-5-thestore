@@ -3,6 +3,7 @@ vendor/
 node_modules/
 public/bower_components/
 public/storage/
+public/items/
 
 # Laravel 4 specific
 bootstrap/compiled.php

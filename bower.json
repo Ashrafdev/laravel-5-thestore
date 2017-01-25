@@ -17,7 +17,9 @@
   ],
   "dependencies": {
     "components-font-awesome": "^4.7.0",
-    "bootstrap": "v4.0.0-alpha.6"
+    "bootstrap": "v4.0.0-alpha.6",
+    "vue": "^2.1.10",
+    "vue-resource": "^1.0.3"
   },
-  "directory" : "public/bower_components"
+  "directory": "public/bower_components"
 }

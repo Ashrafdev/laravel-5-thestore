@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -23,7 +23,9 @@ class Users extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public $fillable = [
         'name',
@@ -62,5 +64,8 @@ class Users extends Model
         
     ];
 
-    
+    public function Items()
+    {
+        return $this->hasMany('App\Models\Items', 'user_id');
+    }
 }

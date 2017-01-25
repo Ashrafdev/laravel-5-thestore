@@ -18,6 +18,7 @@ class Items extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('price');
+            $table->text('file_name')->nullable();
             $table->string('img_path')->nullable();
             $table->string('file_mime')->nullable();
             $table->integer('item_categories_id')->nullable();

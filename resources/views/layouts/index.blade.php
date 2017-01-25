@@ -6,21 +6,19 @@
     <meta name="description" content="">
     <meta name="author" content="ASHRAF">
     <meta name="keyword" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>The Store</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-reset.css" rel="stylesheet">
-    <!--external css-->
     <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
     <link href="/css/theme.css" rel="stylesheet">
     <link rel="/stylesheet" href="/css/flexslider.css"/>
     <link href="/assets/bxslider/jquery.bxslider.css" rel="stylesheet"/>
     <link href="/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/assets/revolution_slider/css/rs-style.css" media="screen">
-    <link rel="stylesheet" href="/assets/revolution_slider/rs-plugin/css/settings.css" media="screen">
-    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css" />
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/style-responsive.css" rel="stylesheet"/>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -48,15 +46,43 @@
         </ul>
     </div>
     @if(Auth::check())
-        <ul class="nav navbar-right">
-            <li><a href="{!! url('/logout') !!}"><button type="submit" class="btn btn-danger">Logout</button></a></li>
-        </ul>
+        <div class="top-nav">
+            <ul class="nav pull-right top-menu">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="username">
+                            @if (Auth::user())
+                                {!! Auth::user()->name !!}
+                            @endif
+                        </span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li><a href="{!! url("/profile/".Auth::user()->id) !!}"><i class="fa fa-users" aria-hidden="true"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-list" aria-hidden="true"></i>My Items</a></li>
+                        <li><a href="{!! url('http://localhost/password/reset') !!}"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset Pass</a></li>
+                        <li>
+                            <a href="{!! url('/logout') !!}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fa fa-key" aria-hidden="true"></i>Logout
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     @endif
 </header>
 <body>
 @yield('content')
 <div class="panel-body">
-    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-login" class="modal fade">
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-login"
+                                 class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,21 +107,22 @@
     </div>
 </div>
 </body>
-<!-- jQuery 2.1.4 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<!-- Datatables -->
 <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
-<!-- js placed at the end of the document so the pages load faster -->
 <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="/js/respond.min.js"></script>
 <script src="/js/slidebars.min.js"></script>
 <script src="/js/common-scripts.js"></script>
 <script type="text/javascript" src="/js/ga.js"></script>
+<script src="/assets/fancybox/source/jquery.fancybox.js"></script>
+<script src="/js/modernizr.custom.js"></script>
 {{--<script src="/js/form-component.js"></script>--}}
 <script src="/js/jquery.stepy.js"></script>
+<script src="/js/gritter.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
 @yield('scripts')
 @stack('scripts')
 </body>

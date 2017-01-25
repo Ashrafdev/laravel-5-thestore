@@ -1,6 +1,4 @@
 <?php
-use Illuminate\Support\Facades\Mail;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +13,6 @@ Auth::routes();
 
 // public
 Route::get('/', 'HomeController@index');
-Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/login', function () {
     return view('auth.login2');
 });
@@ -23,16 +20,22 @@ Route::get('/login', function () {
 Route::get('/post_item', 'ItemsController@createByUser');
 Route::post('/post_item', 'ItemsController@storeByUser');
 
+Route::get('/view/item/{id}', 'ItemsController@show');
+
 // Auth
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
-    //Route::get('/profile', 'HomeController@index');
-    Route::resource('items', 'ItemsController');
-    Route::resource('states', 'StatesController');
-    Route::resource('countries', 'CountriesController');
-    Route::resource('item_categories', 'ItemCategoriesController');
-    Route::resource('roles', 'RolesController');
-    Route::resource('users', 'UsersController');
-    Route::resource('types', 'TypesController');
-    Route::resource('states', 'StatesController');
+
+    Route::get('/profile/{id}', 'UsersController@show');
+    Route::post('/profile/{id}', 'UsersController@update');
+
+    Route::get('/my/items/', 'ItemsController@indexForUser');
+    Route::post('/my/item/{id}', 'ItemsController@update');
+//    Route::resource('items', 'ItemsController');
+//    Route::resource('states', 'StatesController');
+//    Route::resource('countries', 'CountriesController');
+//    Route::resource('item_categories', 'ItemCategoriesController');
+//    Route::resource('roles', 'RolesController');
+//    Route::resource('types', 'TypesController');
+//    Route::resource('states', 'StatesController');
 });

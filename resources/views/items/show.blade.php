@@ -1,17 +1,40 @@
-@extends('layouts.app')
-
+@extends('layouts.index')
 @section('content')
-    <div class="row">
-        <div class="col-lg-12">
+    <div class="wrapper">
+        <div class="col-md-8 col-md-offset-2">
             <section class="panel">
-                <header class="panel-heading">
-                    Items
-                </header>
                 <div class="panel-body">
-                    @include('flatlab-templates::common.errors')
-                    <div class="row" style="padding-left: 20px">
-                       @include('items.show_fields')
-                        <a href="{!! route('items.index') !!}" class="btn btn-default">Back</a>
+                    <div class="col-md-6">
+                        <div class="pro-img-details">
+                            <img src="{!! url($items->img_path) !!}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="pro-d-title">
+                            <a href="#" class="">
+                                {!! $items->name !!}
+                            </a>
+                        </h4>
+                        <p>
+                            {!! $items->description !!}
+                        </p>
+                        <div class="product_meta">
+                            <span class="posted_in"> <strong>Categories:</strong> <a rel="tag" href="#"> all</a></span>
+                            <span class="tagged_as"><strong>Tags:</strong><a rel="tag" href="#"> all</a>.</span>
+                        </div>
+                        <div class="m-bot15"><strong>Price : </strong>
+                            <span class="pro-price"> RM{!! $items->price !!}</span>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                Contact Seller: {!! $items->users->mobile !!}
+                            </p>
+                            <p>
+                                <a href="mailto:{!! $items->users->email !!}" class="btn btn-round btn-danger" target="_blank">
+                                    <i class="icon-shopping-cart"></i> Email Seller
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

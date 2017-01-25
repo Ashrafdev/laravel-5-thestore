@@ -1,20 +1,21 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Repositories\ItemsRepository;
 use App\Http\Controllers\AppBaseController;
-use App\User;
-use App\Models\Items;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use League\Fractal\Resource\Item;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Webpatser\Uuid\Uuid;
+use App\Models\Users;
+use App\Models\Items;
 
 class ItemsController extends AppBaseController
 {
@@ -37,8 +38,7 @@ class ItemsController extends AppBaseController
         $this->itemsRepository->pushCriteria(new RequestCriteria($request));
         $items = $this->itemsRepository->paginate(50);
 
-        return view('items.index')
-            ->with('items', $items);
+        return view('items.index')->with('items', $items);
     }
 
     /**
@@ -81,12 +81,10 @@ class ItemsController extends AppBaseController
         $items = $this->itemsRepository->findWithoutFail($id);
 
         if (empty($items)) {
-            Flash::error('Items not found');
-
-            return redirect(route('items.index'));
+            return redirect(url('/'))->with('warning', 'Items not found');
         }
 
-        return view('items.show')->with('items', $items);
+        return view('items.show')->with(compact('items'));
     }
 
     /**
@@ -184,7 +182,7 @@ class ItemsController extends AppBaseController
         $file = $request->file('item_image');
         $path = $request->file('item_image')->store('items', 'global');
 
-        $Users = new User;
+        $Users = new Users;
         $Users->id = Uuid::generate(5, $request->email, Uuid::NS_DNS)->string;
         $Users->name = $request->name;
         $Users->dob = $request->dob;
@@ -206,12 +204,26 @@ class ItemsController extends AppBaseController
         $Items->user_id = $Users->id;
         $Items->save();
 
-//        Flash::success();
-        return redirect(url('/'))->with('status', 'Items saved successfully.');
+        return redirect(url('/'))->with('success', 'Items saved successfully.');
     }
 
     public function createByUser()
     {
         return view('post_item.index');
+    }
+
+    public function indexForUser(Request $request)
+    {
+        if (!Auth::check()) {
+            redirect('/')->with('error', 'You Not Authorized Please Login');
+        }
+
+        $items = Items::with('Users')->where('Items.user_id', '=', Auth::user()->id)->get();
+
+//        foreach ($items as $item) {
+//            dd($item);
+//        }
+
+        return view('items.index')->with('items', $items);
     }
 }

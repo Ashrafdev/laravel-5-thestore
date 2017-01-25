@@ -22,11 +22,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('role_id');
+            $table->integer('country_id')->nullable();
+            $table->integer('state_id')->nullable();
             $table->rememberToken();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->primary('id');
-            $table->index(['role_id']);
+            $table->index(['role_id', 'country_id', 'state_id']);
         });
     }
 

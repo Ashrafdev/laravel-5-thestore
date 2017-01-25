@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/items-all', function () {
+    $Items = \App\Models\Items::paginate(2);
+    return $Items;
+});
 
 Route::get('/user', function (Request $request) {
     return $request->user();
