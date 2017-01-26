@@ -173,7 +173,8 @@ return [
         \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
         \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         \InfyOm\FlatLabTemplates\FlatLabTemplatesServiceProvider::class,
-        \Yajra\Datatables\DatatablesServiceProvider::class
+        \Yajra\Datatables\DatatablesServiceProvider::class,
+        \Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
@@ -226,5 +227,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
     ],
 ];

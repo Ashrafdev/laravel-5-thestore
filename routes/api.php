@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,10 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/items-all', function () {
-    $Items = \App\Models\Items::paginate(2);
+    $Items = \App\Models\Items::paginate(6);
     return $Items;
 });
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+//Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+Route::post('authenticate', 'AuthenticateController@authenticate');
+Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser');

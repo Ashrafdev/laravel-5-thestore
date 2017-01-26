@@ -9,6 +9,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\ItemsController;
+
 Auth::routes();
 
 // public
@@ -26,11 +28,17 @@ Route::get('/view/item/{id}', 'ItemsController@show');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
 
+    //Profiles
     Route::get('/profile/{id}', 'UsersController@show');
     Route::post('/profile/{id}', 'UsersController@update');
+    //Route::delete('/profile/{id}', 'UsersController@destroy');
 
+    // Items
     Route::get('/my/items/', 'ItemsController@indexForUser');
+    Route::post('/my/item/create', 'ItemsController@store');
     Route::post('/my/item/{id}', 'ItemsController@update');
+    Route::delete('/my/item/{id}', 'ItemsController@destroy');
+
 //    Route::resource('items', 'ItemsController');
 //    Route::resource('states', 'StatesController');
 //    Route::resource('countries', 'CountriesController');

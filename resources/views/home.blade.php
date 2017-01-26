@@ -1,6 +1,6 @@
 @extends('layouts.index')
 @section('content')
-    <section class="wrapper" id="app">
+    <section class="wrapper">
     @include('Element.Flash.general')
     @include('Element.Flash.success')
     @include('Element.Flash.warning')

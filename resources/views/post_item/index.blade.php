@@ -28,13 +28,13 @@
                             <fieldset title="Step1" class="step" id="default-step-0" style="display: block;">
                                 <legend>Item Details</legend>
                                 <!-- Name Field -->
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <div class="form-group{{ $errors->has('item_name') ? ' has-error' : '' }}">
                                     <label class="col-lg-2 control-label">Name</label>
                                     <div class="col-lg-10">
                                         <input type="text" name="item_name" class="form-control" placeholder="Name" required>
-                                        @if ($errors->has('name'))
+                                        @if ($errors->has('item_name'))
                                             <span class="help-block">
-                                              <strong>{{ $errors->first('name') }}</strong>
+                                              <strong>{{ $errors->first('item_name') }}</strong>
                                            </span>
                                         @endif
                                     </div>
@@ -59,7 +59,7 @@
                                     <div class="col-lg-10 input-group">
                                         <span class="input-group-addon">RM</span>
                                         <input type="number" name="item_price" class="form-control" placeholder="Price" required>
-                                        @if ($errors->has('price'))
+                                        @if ($errors->has('item_price'))
                                             <span class="help-block">
                                               <strong>{{ $errors->first('item_price') }}</strong>
                                            </span>
@@ -72,7 +72,7 @@
                                     <label class="col-lg-2 control-label">Image</label>
                                     <div class="col-lg-4">
                                         <input type="file" name="item_image" class="form-control-file btn btn-white btn-file" placeholder="" required>
-                                        @if ($errors->has('image'))
+                                        @if ($errors->has('item_image'))
                                             <span class="help-block">
                                               <strong>{{ $errors->first('item_image') }}</strong>
                                            </span>

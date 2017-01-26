@@ -60,13 +60,23 @@ class ItemsController extends AppBaseController
      */
     public function store(CreateItemsRequest $request)
     {
-        $input = $request->all();
+        $this->validateItemOnly($request);
 
-        $items = $this->itemsRepository->create($input);
+        $file = $request->file('image');
+        $path = $request->file('image')->store('items', 'global');
 
-        Flash::success('Items saved successfully.');
+        $Items = new Items;
+        $Items->id = Uuid::generate(4)->string;
+        $Items->name = $request->name;
+        $Items->description = $request->description;
+        $Items->price = $request->price;
+        $Items->img_path = $path;
+        $Items->file_mime = $file->getMimeType();
+        $Items->item_categories_id = $request->item_categories_id;
+        $Items->user_id = Auth::user()->id;
+        $Items->saveOrFail();
 
-        return redirect(route('items.index'));
+        return redirect(url('/my/items'))->with('success', 'Items saved successfully.');
     }
 
     /**
@@ -144,16 +154,12 @@ class ItemsController extends AppBaseController
         $items = $this->itemsRepository->findWithoutFail($id);
 
         if (empty($items)) {
-            Flash::error('Items not found');
-
-            return redirect(route('items.index'));
+            return redirect()->back()->with('error', 'Items not found');
         }
 
         $this->itemsRepository->delete($id);
 
-        Flash::success('Items deleted successfully.');
-
-        return redirect(route('items.index'));
+        return redirect('/my/items')->with('success', 'Items deleted successfully.');
     }
 
     public function validateItemPost(Request $request)
@@ -173,7 +179,16 @@ class ItemsController extends AppBaseController
         ]);
     }
 
-    //public
+    public function validateItemOnly(Request $request)
+    {
+        return $this->validate($request, [
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'price' => 'required|integer',
+            'item_categories_id' => 'required|integer',
+            'image' => 'required|image',
+        ]);
+    }
 
     public function storeByUser(Request $request)
     {
@@ -212,17 +227,13 @@ class ItemsController extends AppBaseController
         return view('post_item.index');
     }
 
-    public function indexForUser(Request $request)
+    public function indexForUser()
     {
         if (!Auth::check()) {
             redirect('/')->with('error', 'You Not Authorized Please Login');
         }
 
-        $items = Items::with('Users')->where('Items.user_id', '=', Auth::user()->id)->get();
-
-//        foreach ($items as $item) {
-//            dd($item);
-//        }
+        $items = Items::where('Items.user_id', '=', Auth::user()->id)->paginate(50);
 
         return view('items.index')->with('items', $items);
     }
