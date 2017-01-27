@@ -53,7 +53,7 @@
                             </span>
                         </div>
 
-                        <div class="pull-right">
+                        <div class="pull-right" v-if="items.last_page!==1">
                             <ul class="pagination pagination-sm pro-page-list">
                                 <li v-for="(n, index) in items.last_page">
                                     <a href="javascript:void(0)" v-on:click="getHomePage(n)">@{{ n }}</a>
