@@ -11817,7 +11817,20 @@ var vm = new Vue({
     data: {
         message: 'output',
         searchKeyword: '',
+        ShowPerPage: 12,
+        SortBy: '',
         items: [],
+    },
+    filters: {
+        limit: function (value, amount) {
+            return value.filter(function(val, index, arr){
+                return index < amount;
+            });
+        },
+        SortByName: function (value, amount) {
+            console.log(value);
+            console.log(amount);
+        }
     },
     ready: function() {
         this.Home();

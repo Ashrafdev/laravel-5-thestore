@@ -24,29 +24,29 @@
             <div class="col-md-9">
                 <section class="panel">
                     <div class="panel-body">
-                        <div class="pro-sort">
-                            <label class="pro-lab">Sort By</label>
-                            <select class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 130px; position: absolute; opacity: 0; height: 39px; font-size: 12px;">
-                                <option>Default Sorting</option>
-                                <option>Popularity</option>
-                                <option>Average Rating</option>
-                                <option>Newness</option>
-                                <option>Price Low to High</option>
-                                <option>Price High to Low</option>
-                            </select>
-                            <span class="customSelect styled" style="display: inline-block;">
-                                <span class="customSelectInner" style="width: 108px; display: inline-block;">Default Sorting</span>
-                            </span>
-                        </div>
+                        {{--<div class="pro-sort">--}}
+                            {{--<label class="pro-lab">Sort By</label>--}}
+                            {{--<select v-model="SortBy" class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 130px; position: absolute; opacity: 0; height: 39px; font-size: 12px;">--}}
+                                {{--<option value="default">Default Sorting</option>--}}
+                                {{--<option value="popularity">Popularity</option>--}}
+                                {{--<option value="average">Average Rating</option>--}}
+                                {{--<option value="new">Newness</option>--}}
+                                {{--<option value="lh">Price Low to High</option>--}}
+                                {{--<option value="hl">Price High to Low</option>--}}
+                            {{--</select>--}}
+                            {{--<span class="customSelect styled" style="display: inline-block;">--}}
+                                {{--<span class="customSelectInner" style="width: 108px; display: inline-block;">Default Sorting</span>--}}
+                            {{--</span>--}}
+                        {{--</div>--}}
                         <div class="pro-sort">
                             <label class="pro-lab">Show</label>
-                            <select class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 119px; position: absolute; opacity: 0; height: 39px; font-size: 12px;">
-                                <option>Result Per Page</option>
-                                <option>2 Per Page</option>
-                                <option>4 Per Page</option>
-                                <option>6 Per Page</option>
-                                <option>8 Per Page</option>
-                                <option>10 Per Page</option>
+                            <select v-model="ShowPerPage" class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 119px; position: absolute; opacity: 0; height: 39px; font-size: 12px;">
+                                <option value="12">Result Per Page</option>
+                                <option value="2">2 Per Page</option>
+                                <option value="4">4 Per Page</option>
+                                <option value="6">6 Per Page</option>
+                                <option value="8">8 Per Page</option>
+                                <option value="10">10 Per Page</option>
                             </select>
                             <span class="customSelect styled" style="display: inline-block;">
                                 <span class="customSelectInner" style="width: 97px; display: inline-block;">Result Per Page</span>
@@ -65,7 +65,8 @@
 
                 <div class="row product-list">
 
-                    <div class="col-md-4" v-for="item in items.data | filterBy searchKeyword" transition="staggered" stagger="100">
+                    <div class="col-md-4" v-for="item in items.data | filterBy searchKeyword in 'name' | limit ShowPerPage"
+                         transition="staggered" stagger="100">
                         <section class="panel">
                             <div class="pro-img-box">
                                 <img :src="'/'+item.img_path" alt="" width="312px" height="248px">
