@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/items-all', function () {
-    $Items = \App\Models\Items::paginate(6);
+    $Items = \App\Models\Items::paginate(12);
     return $Items;
 });
 

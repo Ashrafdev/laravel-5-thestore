@@ -32,7 +32,7 @@
 
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#profileEdit" data-toggle="modal"><i class="icon-user"></i> Edit Profile</a></li>
-                        <li class="active"><a href="#"> <i class="icon-user"></i> My Items</a></li>
+                        <li class="active"><a href="{!! url('/my/items')!!}"> <i class="icon-user"></i> My Items</a></li>
                     </ul>
 
                 </section>
