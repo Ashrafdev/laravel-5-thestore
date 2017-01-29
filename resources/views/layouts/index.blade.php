@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="/css/gallery.css" />
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/style-responsive.css" rel="stylesheet"/>
+    @stack('style')
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>

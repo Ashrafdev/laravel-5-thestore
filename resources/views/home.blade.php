@@ -1,5 +1,19 @@
 @extends('layouts.index')
 @section('content')
+@push('style')
+<style>
+    .staggered-transition {
+        transition: all .5s ease;
+        overflow: hidden;
+        margin: 0;
+        height: auto;
+    }
+    .staggered-enter, .staggered-leave {
+        opacity: 0;
+        height: 0;
+    }
+</style>
+@endpush
     <section class="wrapper">
     @include('Element.Flash.general')
     @include('Element.Flash.success')

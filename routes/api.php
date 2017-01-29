@@ -11,21 +11,19 @@ use Illuminate\Support\Facades\Auth;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
-|
+|s
 */
-Route::get('/items-all', function () {
-    $Items = \App\Models\Items::paginate(2);
-    return $Items;
-})->middleware('CORS');
+Route::group(['middleware' => 'CORS'], function () {
 
-Route::get('/api', function () {
-    return 'GET';
-})->middleware(['CORS','CheckApi']);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser');
 
-Route::post('authenticate', 'AuthenticateController@authenticate');
-Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser');
+    Route::get('/items-all', function () {
+        $Items = \App\Models\Items::paginate(6);
+        return $Items;
+    });
 
-//Profiles
+//Profile
 //Route::get('/profile/{id}', 'UsersController@show');
 //Route::post('/profile/{id}', 'UsersController@update');
 //Route::delete('/profile/{id}', 'UsersController@destroy');
@@ -35,3 +33,6 @@ Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser');
 //Route::post('/my/item/create', 'ItemsController@store');
 //Route::post('/my/item/{id}', 'ItemsController@update');
 //Route::delete('/my/item/{id}', 'ItemsController@destroy');
+
+});
+

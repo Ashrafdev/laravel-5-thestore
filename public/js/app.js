@@ -11840,18 +11840,27 @@ var vm = new Vue({
             var that = this;
             jQuery.get('/api/items-all', function (res) {
                 // console.log(res);
-                that.items = res;
-                Vue.nextTick(function () {});
+                Vue.nextTick(function () {
+                    that.items = res;
+                });
             })
         },
         getHomePage: function getHomePage(n) {
             n++;
             var that = this;
             jQuery.get('/api/items-all?page='+n, function (res) {
-                that.items = res;
-                Vue.nextTick(function () {});
+                Vue.nextTick(function () {
+                    that.items = res;
+                });
             })
         }
+    }
+})
+Vue.transition('stagger', {
+    stagger: function (index) {
+        // increase delay by 50ms for each transitioned item,
+        // but limit max delay to 300ms
+        return Math.min(300, index * 50)
     }
 })
 },{"underscore":2,"vue":68}]},{},[70]);
