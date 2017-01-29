@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckApi;
 use App\Http\Middleware\CORS;
+use App\Http\Middleware\refreshToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

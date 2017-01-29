@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 /**
  * Class Users
@@ -67,5 +68,10 @@ class Users extends Model
     public function Items()
     {
         return $this->hasMany('App\Models\Items', 'user_id');
+    }
+
+    public function scopeOnlyMe($query, Request $request)
+    {
+        return $query->where(['user_id', $request->input('user.id')]);
     }
 }

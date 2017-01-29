@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -16,23 +17,24 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => 'CORS'], function () {
 
     Route::post('authenticate', 'AuthenticateController@authenticate');
-    Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser');
+    Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser')->middleware(['jwt.auth']);
+    Route::get('renewToken', 'AuthenticateController@renewToken');
 
     Route::get('/items-all', function () {
-        $Items = \App\Models\Items::paginate(6);
-        return $Items;
+        return  \App\Models\Items::paginate(6);
     });
 
-//Profile
-//Route::get('/profile/{id}', 'UsersController@show');
-//Route::post('/profile/{id}', 'UsersController@update');
-//Route::delete('/profile/{id}', 'UsersController@destroy');
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::get('users/{id}', 'UsersAPIController@show');
+        Route::post('users', 'UsersAPIController@store');
+        Route::put('users/{id}', 'UsersAPIController@update');
+        Route::delete('users/{id}', 'UsersAPIController@destroy');
 
-// Items
-//Route::get('/my/items/', 'ItemsController@indexForUser');
-//Route::post('/my/item/create', 'ItemsController@store');
-//Route::post('/my/item/{id}', 'ItemsController@update');
-//Route::delete('/my/item/{id}', 'ItemsController@destroy');
-
+        Route::get('items', 'ItemsAPIController@index');
+        Route::get('items/{id}', 'ItemsAPIController@show');
+        Route::post('items', 'ItemsAPIController@store');
+        Route::put('items/{id}', 'ItemsAPIController@update');
+        Route::delete('items/{id}', 'ItemsAPIController@destroy');
+    });
 });
 

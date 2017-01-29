@@ -25,6 +25,14 @@ class UpdateUsersRequest extends FormRequest
      */
     public function rules()
     {
-        return Users::$rules;
+        return [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'dob' => 'required|date',
+            'gender' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'mobile' => 'required|integer'
+        ];
     }
 }
