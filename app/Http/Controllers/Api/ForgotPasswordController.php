@@ -41,10 +41,15 @@ class ForgotPasswordController extends Controller
             return response('Invalid Email or Token', 401);
         }
 
-        $Users = Users::where('email', $users_token->email)->first();
-        $Users->password = bcrypt($request->password);
-        $Users->save();
+        if ($request->password === $request->password_confirmation) {
 
-        return response()->json(['message' => 'success', 'data' => $Users]);
+            $Users = Users::where('email', $users_token->email)->first();
+            $Users->password = bcrypt($request->password);
+            $Users->save();
+
+            return response()->json(['message' => 'success', 'data' => $Users]);
+        }
+
+        return response('error', 401);
     }
 }
