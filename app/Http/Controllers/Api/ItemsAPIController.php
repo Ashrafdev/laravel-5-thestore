@@ -109,8 +109,6 @@ class ItemsAPIController extends AppBaseController
 
         $items = $items->update($request->except(['token','_method', 'user_id']));
 
-        dd($items);
-
         return $this->sendResponse($items->toArray(), 'Items updated successfully');
     }
 
