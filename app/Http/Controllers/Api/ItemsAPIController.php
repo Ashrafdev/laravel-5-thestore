@@ -148,11 +148,16 @@ class ItemsAPIController extends AppBaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'item_description' => 'required|max:255',
+            'item_price' => 'required|integer',
+            'item_categories_id' => 'required|integer',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
             'dob' => 'required|date',
-            'gender' => 'required|string',
+            'gender' => 'required',
+            'country' => 'required',
             'mobile' => 'required|integer',
+            'password' => 'required|min:6|confirmed',
+            'item_image' => 'required|image',
         ]);
 
         if ($validator->fails()) {
@@ -162,7 +167,7 @@ class ItemsAPIController extends AppBaseController
         $file = $request->file('item_image');
         $path = $request->file('item_image')->store('items', 'global');
 
-        $Users = new Users;
+        $Users = new \App\Models\Users;
         $Users->id = Uuid::generate(5, $request->email, Uuid::NS_DNS)->string;
         $Users->name = $request->name;
         $Users->dob = $request->dob;

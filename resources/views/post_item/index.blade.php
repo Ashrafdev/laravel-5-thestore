@@ -115,7 +115,6 @@
 @push('scripts')
 <script>
     $(document).ready(function ($) {
-        console.log(1);
         $('#defaults').stepy({
             backLabel: 'Previous',
             block: true,
