@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
             ->first();
 
         if (empty($users_token)) {
-            return response('Invalid Email Token', 401);
+            return response('Invalid Email or Token', 401);
         }
 
         $Users = Users::where('email', $users_token->email)->first();
