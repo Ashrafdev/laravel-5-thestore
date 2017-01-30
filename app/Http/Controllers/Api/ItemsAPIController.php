@@ -7,6 +7,7 @@ use App\Repositories\ItemsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Webpatser\Uuid\Uuid;
 
 /**
  * Class ItemsController
@@ -51,11 +52,21 @@ class ItemsAPIController extends AppBaseController
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        $file = $request->file('item_image');
+        $path = $request->file('item_image')->store('items', 'global');
 
-        $items = $this->items->create($input);
+        $Items = new Items;
+        $Items->id = Uuid::generate(4)->string;
+        $Items->name = $request->item_name;
+        $Items->description = $request->item_description;
+        $Items->price = $request->item_price;
+        $Items->img_path = $path;
+        $Items->file_mime = $file->getMimeType();
+        $Items->item_categories_id = $request->item_categories_id;
+        $Items->user_id = $request->user_id;
+        $Items->saveOrFail();
 
-        return $this->sendResponse($items->toArray(), 'Items saved successfully');
+        return $this->sendResponse($Items->toArray(), 'Items saved successfully');
     }
 
     /**
@@ -88,13 +99,17 @@ class ItemsAPIController extends AppBaseController
      */
     public function update($id, Request $request)
     {
-        $items = $this->items->findOrFail($id);
+        $items = $this->items
+            ->where('id', $id)
+            ->where('user_id', $request->user_id);
 
         if (empty($items)) {
-            return $this->sendError('Items not found');
+            return $this->sendError('Items not found or Invalid request');
         }
 
-        $items = $this->items->where('id', $id)->update($request->except(['token','_method']));
+        $items = $items->update($request->except(['token','_method', 'user_id']));
+
+        dd($items);
 
         return $this->sendResponse($items->toArray(), 'Items updated successfully');
     }
@@ -119,5 +134,35 @@ class ItemsAPIController extends AppBaseController
         $items->delete();
 
         return $this->sendResponse($id, 'Items deleted successfully');
+    }
+
+    public function createItemAndUser(Request $request)
+    {
+        $file = $request->file('item_image');
+        $path = $request->file('item_image')->store('items', 'global');
+
+        $Users = new Users;
+        $Users->id = Uuid::generate(5, $request->email, Uuid::NS_DNS)->string;
+        $Users->name = $request->name;
+        $Users->dob = $request->dob;
+        $Users->gender = $request->gender;
+        $Users->mobile = $request->mobile;
+        $Users->email = $request->email;
+        $Users->password = bcrypt($request->password);
+        $Users->role_id = 2; //user role
+        $Users->save();
+
+        $Items = new Items;
+        $Items->id = Uuid::generate(4)->string;
+        $Items->name = $request->item_name;
+        $Items->description = $request->item_description;
+        $Items->price = $request->item_price;
+        $Items->img_path = $path;
+        $Items->file_mime = $file->getMimeType();
+        $Items->item_categories_id = $request->item_categories_id;
+        $Items->user_id = $Users->id;
+        $Items->save();
+
+        return response()->json('success');
     }
 }

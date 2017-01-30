@@ -24,14 +24,15 @@ Route::group(['middleware' => 'CORS'], function () {
         return  \App\Models\Items::paginate(6);
     });
 
+    Route::get('items', 'ItemsAPIController@index');
+    Route::get('items/{id}', 'ItemsAPIController@show');
+
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('users/{id}', 'UsersAPIController@show');
         Route::post('users', 'UsersAPIController@store');
         Route::put('users/{id}', 'UsersAPIController@update');
         Route::delete('users/{id}', 'UsersAPIController@destroy');
 
-        Route::get('items', 'ItemsAPIController@index');
-        Route::get('items/{id}', 'ItemsAPIController@show');
         Route::post('items', 'ItemsAPIController@store');
         Route::put('items/{id}', 'ItemsAPIController@update');
         Route::delete('items/{id}', 'ItemsAPIController@destroy');
