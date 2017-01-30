@@ -20,16 +20,15 @@ Route::group(['middleware' => 'CORS'], function () {
     Route::get('authenticate', 'AuthenticateController@getAuthenticatedUser')->middleware(['jwt.auth']);
     Route::get('renewToken', 'AuthenticateController@renewToken');
 
-    Route::get('/items-all', function () {
-        return  \App\Models\Items::paginate(6);
-    });
+    Route::get('/items-all', function () { return  \App\Models\Items::paginate(6); });
 
     Route::get('items', 'ItemsAPIController@index');
     Route::get('items/{id}', 'ItemsAPIController@show');
 
     Route::post('register_with_item', 'ItemsAPIController@createItemAndUser');
-
     Route::post('users', 'UsersAPIController@store');
+
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
 
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('users/{id}', 'UsersAPIController@show');
