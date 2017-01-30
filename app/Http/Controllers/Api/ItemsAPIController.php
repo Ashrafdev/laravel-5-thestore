@@ -103,13 +103,23 @@ class ItemsAPIController extends AppBaseController
             ->where('id', $id)
             ->where('user_id', $request->user_id);
 
+        $file = $request->file('edit_item_image');
+        $path = $request->file('edit_item_image')->store('items', 'global');
+
         if (empty($items)) {
             return $this->sendError('Items not found or Invalid request');
         }
 
-        $items = $items->update($request->except(['token','_method', 'user_id']));
+        $items = $items->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'img_path' => $path,
+            'file_mime' => $file->getMimeType(),
+            'item_categories_id' => $request->item_categories_id,
+        ]);
 
-        return $this->sendResponse($items->toArray(), 'Items updated successfully');
+        return $this->sendResponse($items, 'Items updated successfully');
     }
 
     /**
