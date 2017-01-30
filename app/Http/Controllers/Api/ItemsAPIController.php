@@ -146,6 +146,19 @@ class ItemsAPIController extends AppBaseController
 
     public function createItemAndUser(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'dob' => 'required|date',
+            'gender' => 'required|string',
+            'mobile' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response('error', 400);
+        }
+
         $file = $request->file('item_image');
         $path = $request->file('item_image')->store('items', 'global');
 
@@ -171,6 +184,6 @@ class ItemsAPIController extends AppBaseController
         $Items->user_id = $Users->id;
         $Items->save();
 
-        return response()->json('success');
+        return response()->json(['message' => 'success']);
     }
 }

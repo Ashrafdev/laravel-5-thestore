@@ -29,6 +29,7 @@ class Users extends Model
     ];
 
     public $fillable = [
+        'id',
         'name',
         'dob',
         'gender',

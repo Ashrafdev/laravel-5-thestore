@@ -21,7 +21,6 @@ class UsersAPIController extends AppBaseController
 {
     use ValidatesRequests;
 
-
     /** @var  UsersRepository */
     private $usersRepository;
 
@@ -56,14 +55,18 @@ class UsersAPIController extends AppBaseController
      */
     public function store(Request $request)
     {
-        Validator::make($request, [
+    $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'dob' => 'required|date',
             'gender' => 'required|string',
-            'mobile' => 'required',
+            'mobile' => 'required|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response('error', 400);
+        }
 
         $users = $this->users->create([
                 'id' => Uuid::generate(5, $request->email, Uuid::NS_DNS)->string,

@@ -9,8 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\ItemsController;
-
 Auth::routes();
 
 // public

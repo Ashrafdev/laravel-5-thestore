@@ -27,9 +27,12 @@ Route::group(['middleware' => 'CORS'], function () {
     Route::get('items', 'ItemsAPIController@index');
     Route::get('items/{id}', 'ItemsAPIController@show');
 
+    Route::post('register_with_item', 'ItemsAPIController@createItemAndUser');
+
+    Route::post('users', 'UsersAPIController@store');
+
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('users/{id}', 'UsersAPIController@show');
-        Route::post('users', 'UsersAPIController@store');
         Route::put('users/{id}', 'UsersAPIController@update');
         Route::delete('users/{id}', 'UsersAPIController@destroy');
 
