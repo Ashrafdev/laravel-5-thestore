@@ -28,7 +28,8 @@ Route::group(['middleware' => 'CORS'], function () {
     Route::post('register_with_item', 'ItemsAPIController@createItemAndUser');
     Route::post('users', 'UsersAPIController@store');
 
-    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'ForgotPasswordController@getResetLink');
+    Route::post('password/reset/{token}', 'ForgotPasswordController@setPasswordByToken');
 
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('users/{id}', 'UsersAPIController@show');
