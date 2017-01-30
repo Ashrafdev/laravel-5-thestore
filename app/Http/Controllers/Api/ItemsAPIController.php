@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class ItemsController
