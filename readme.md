@@ -41,11 +41,17 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ## instruction
-
+<br>
 -> cd /<path-to-laravel-5-thestore>
+<br>
 -> composer install
+<br>
 -> npm install
+<br>
 -> bower install && sudo bower install --allow-root ( <-- for linux)
+<br>
 -> php artisan migrate
+<br>
 -> php artisan serve --host=localhost --port=8081
--> done
+<br>
+-> Enjoy!
