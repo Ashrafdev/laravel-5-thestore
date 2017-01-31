@@ -38,3 +38,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+
+## instruction
+
+-> cd /<path-to-laravel-5-thestore>
+-> composer install
+-> npm install
+-> bower install && sudo bower install --allow-root ( <-- for linux)
+-> php artisan migrate
+-> php artisan serve --host=localhost --port=8081
+-> done
