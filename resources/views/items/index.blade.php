@@ -46,18 +46,6 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <div aria-hidden="true" aria-labelledby="addMyItems" role="dialog" tabindex="-1" id="addMyItems"
-                                             class="modal fade">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                                        <h4 class="modal-title">Create New</h4>
-                                                    </div>
-                                                    <div class="modal-body">@include('items.create')</div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div aria-hidden="true" aria-labelledby="updateMyItem{{$key}}" role="dialog" tabindex="-1" id="updateMyItem{{$key}}"
                                              class="modal fade">
                                             <div class="modal-dialog">
@@ -90,6 +78,18 @@
                     @else
                         <p>No Data... You Dont Have Item</p>
                     @endif
+                    <div aria-hidden="true" aria-labelledby="addMyItems" role="dialog" tabindex="-1" id="addMyItems"
+                         class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                    <h4 class="modal-title">Create New</h4>
+                                </div>
+                                <div class="modal-body">@include('items.create')</div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>

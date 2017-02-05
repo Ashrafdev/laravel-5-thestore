@@ -233,7 +233,7 @@ class ItemsController extends AppBaseController
             redirect('/')->with('error', 'You Not Authorized Please Login');
         }
 
-        $items = Items::where('Items.user_id', '=', Auth::user()->id)->paginate(50);
+        $items = Items::where('user_id', '=', Auth::user()->id)->paginate(50);
 
         return view('items.index')->with('items', $items);
     }
