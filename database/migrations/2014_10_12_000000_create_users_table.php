@@ -21,9 +21,11 @@ class CreateUsersTable extends Migration
             $table->integer('mobile');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('picture', 100);
             $table->integer('role_id');
             $table->integer('country_id')->nullable();
             $table->integer('state_id')->nullable();
+            $table->tinyInteger('is_active')->default(0);
             $table->rememberToken();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

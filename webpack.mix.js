@@ -1,6 +1,4 @@
-const elixir = require('laravel-elixir');
-
-require('laravel-elixir-vue-2');
+const {mix} = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,18 +11,11 @@ require('laravel-elixir-vue-2');
  |
  */
 
-// elixir((mix) => {
-//     mix.sass('app.scss')
-//        .webpack('app.js');
-// });
-
-elixir(function(mix) {
-    mix.browserify('app.js');
-});
-// elixir(function(mix) {
-//     mix.sass('app.scss');
-// });
-//
-// elixir(function(mix) {
-//     mix.version(['css/app.css', 'js/app.js']);
-// });
+mix.combine([
+    './public/css/bootstrap.min.css',
+    './public/css/bootstrap-reset.css',
+    './public/bower_components/components-font-awesome/css/font-awesome.min.css',
+    './public/assets/bootstrap-fileupload/bootstrap-fileupload.css',
+    './public/css/style.css',
+    './public/css/style-responsive.css',
+], 'public/css/app.min.css');

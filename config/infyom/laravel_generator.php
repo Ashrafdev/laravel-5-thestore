@@ -54,8 +54,8 @@ return [
     |
     */
 
-    'templates' => 'flatlab-templates',
-
+	'templates' => 'core-templates',
+	
     /*
     |--------------------------------------------------------------------------
     | Model extend class
